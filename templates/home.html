@@ -3,16 +3,55 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h2>User Shifts</h2>
-                  {% for shifts in user_shifts.user_shift%}
-                      <div>
-                      <ul>
-                          <li>{{ shifts.timest}}TO {{ shifts.timeend}} </li><br>
-                      </ul>
+    <!--<div>-->
+        <!--<ol>-->
+            <!--{% for shifts in user_shifts.user_shift%}-->
+                <!--<li>{{ shifts.timest}}&nbsp;TO&nbsp; {{ shifts.timeend}} </li><br>-->
+            <!--{% endfor %}-->
+        <!--</ol>-->
+    <!--</div>-->
+    <section>
+  <!--for demo wrap-->
+  <h1>User shifts with empty slots </h1>
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th>Shift no</th>
+          <th>Day</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Empty slots</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+      {% for shift, empty in zipped%}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{shift.day}} </td>
+          <td>{{shift.timest}}</td>
+          <td>{{shift.timeend}}</td>
+          <td>{{empty}}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
 
-                      </div>
 
-{% endfor %}
 
-    <h2>User Empty Slots</h2>
+<!--<h2>User Empty Slots</h2>-->
+    <!--<div>-->
+        <!--<ol>-->
+            <!--{% for slot in user_empty_slot.empty_slots%}-->
+                <!--<li>{{slot}} empty slots in shift &nbsp;{{forloop.counter}}</li><br>-->
+            <!--{% endfor %}-->
+        <!--</ol>-->
+    <!--</div>-->
+
 {% endblock %}
