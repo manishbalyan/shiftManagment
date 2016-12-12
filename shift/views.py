@@ -5,23 +5,28 @@ from .models import Shifts, ShiftSlots
 def index(request):
     i=[]
     j= []
+    ids =[]
     user_shifts=  {}
     user_empty_slot = {}
     user_shift_slot = ShiftSlots.objects.filter(userId=request.user.id)
-    a= len(user_shift_slot)
+
     for shift in user_shift_slot:
         user_shift = Shifts.objects.get(id=shift.shiftId_id)
-        # print user_shift.capacity
-        empty_slot = user_shift.capacity- a
-        # print empty_slot
         i.append(user_shift)
+
+    for x in i:
+        b = ShiftSlots.objects.filter(shiftId = x.id)
+        empty_slot = x.capacity - len(b)
         j.append(empty_slot)
+        print b
+        print empty_slot
     user_shifts.update({'user_shift':i})
+
     user_empty_slot.update({'empty_slots': j})
     zipped = zip(user_shifts['user_shift'], user_empty_slot['empty_slots'])
 
-    # print (user_shifts,"shfts")
-    # print (user_empty_slot, "empty_slots")
+    print (user_shifts,"shfts")
+    print (user_empty_slot, "empty_slots")
 
     context_dict = {
         'zipped': zipped,
